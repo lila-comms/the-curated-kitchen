@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Curated Kitchen - Hjem</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3A8658',
+            secondary: '#C37D60',
+            tertiary: '#E85B88',
+            neutral: {
+              cream: '#FAF5F0',
+              warm: '#F0E8DE',
+              dark: '#2C2C2C',
+              muted: '#8A8478',
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #FAF5F0; }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-neutral-cream text-neutral-dark">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-neutral-cream/95 backdrop-blur-sm border-b border-neutral-warm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-serif text-xl font-semibold tracking-tight">The Curated Kitchen</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-sm font-medium text-primary border-b-2 border-primary pb-0.5">Hjem</a>
+        <a href="oppskrift.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Oppskrifter</a>
+        <a href="profil.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Min Profil</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-neutral-muted hover:text-neutral-dark">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <a href="profil.html">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-neutral-warm">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&h=900&fit=crop" alt="Elegant matbord" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-neutral-warm/80 text-sm font-medium uppercase tracking-widest mb-3">Healthy Curations</p>
+        <h1 class="font-serif text-4xl md:text-6xl text-white font-semibold leading-tight max-w-xl">The Art of Elevated Simplicity</h1>
+        <p class="text-neutral-warm/90 mt-4 max-w-md text-sm leading-relaxed">Oppdag kuraterte oppskrifter som feirer rene smaker, sesongbaserte ingredienser og tidl&oslash;s eleganse.</p>
+        <button class="mt-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors">Utforsk oppskrifter</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Curations -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-primary text-xs font-semibold uppercase tracking-widest mb-2">Ukens utvalg</p>
+        <h2 class="font-serif text-3xl font-semibold">Healthy Curations</h2>
+      </div>
+      <a href="#" class="text-sm text-primary font-medium hover:underline">Se alle &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=450&fit=crop" alt="Zucchini Ribbon Salad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">Salat</span>
+          <span class="text-xs text-neutral-muted">25 min</span>
+        </div>
+        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Zucchini Ribbon Salad</h3>
+        <p class="text-neutral-muted text-sm mt-1">Friske zucchini-b&aring;nd med sitron, parmesan og ristede pinjekjerner.</p>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&h=450&fit=crop" alt="Quinoa Power Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs bg-secondary/10 text-secondary px-3 py-1 rounded-full font-medium">Bowl</span>
+          <span class="text-xs text-neutral-muted">30 min</span>
+        </div>
+        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Quinoa Power Bowl</h3>
+        <p class="text-neutral-muted text-sm mt-1">N&aelig;ringsrik quinoa med avokado, edamame og sesamdressing.</p>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&h=450&fit=crop" alt="Creamy Mushroom Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs bg-neutral-warm text-neutral-dark px-3 py-1 rounded-full font-medium">Hovedrett</span>
+          <span class="text-xs text-neutral-muted">45 min</span>
+        </div>
+        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Creamy Mushroom Risotto</h3>
+        <p class="text-neutral-muted text-sm mt-1">FlÃ¸yaktig risotto med skogssopp, timian og parmigiano.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Seasonal Highlight -->
+  <section class="bg-neutral-warm/50">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="rounded-2xl overflow-hidden aspect-square">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&h=800&fit=crop" alt="Sesongbaserte ingredienser" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-primary text-xs font-semibold uppercase tracking-widest mb-3">Sesongens beste</p>
+          <h2 class="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-4">Charred Heritage<br>Summer Squash</h2>
+          <p class="text-neutral-muted leading-relaxed mb-6">En vakker rett som lar de enkleste ingrediensene skinne. Grillet squash med za'atar, honning og friske urter fra hagen.</p>
+          <div class="flex items-center gap-6 mb-6">
+            <div class="text-center">
+              <p class="font-serif text-2xl font-semibold text-primary">35</p>
+              <p class="text-xs text-neutral-muted">Minutter</p>
+            </div>
+            <div class="w-px h-10 bg-neutral-warm"></div>
+            <div class="text-center">
+              <p class="font-serif text-2xl font-semibold text-primary">4</p>
+              <p class="text-xs text-neutral-muted">Porsjoner</p>
+            </div>
+            <div class="w-px h-10 bg-neutral-warm"></div>
+            <div class="text-center">
+              <p class="font-serif text-2xl font-semibold text-primary">Enkel</p>
+              <p class="text-xs text-neutral-muted">Vanskelighetsgrad</p>
+            </div>
+          </div>
+          <a href="oppskrift.html" class="inline-block bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors">Se oppskrift</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More Recipes -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="font-serif text-3xl font-semibold mb-10">Nylig lagt til</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop" alt="Pizza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Sourdough Flatbread</h4>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=400&fit=crop" alt="Suppe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Roasted Tomato Soup</h4>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=400&fit=crop" alt="Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Garden Herb Salad</h4>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&h=400&fit=crop" alt="Dessert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Honey Lavender Tart</h4>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-warm bg-neutral-cream">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-serif text-lg font-semibold mb-3">The Curated Kitchen</h3>
+          <p class="text-neutral-muted text-sm leading-relaxed">Kuraterte oppskrifter som feirer sesongbaserte ingredienser og enkel eleganse.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Utforsk</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="index.html" class="hover:text-primary transition-colors">Hjem</a></li>
+            <li><a href="oppskrift.html" class="hover:text-primary transition-colors">Oppskrifter</a></li>
+            <li><a href="profil.html" class="hover:text-primary transition-colors">Min Profil</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Kategorier</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="#" class="hover:text-primary transition-colors">Salater</a></li>
+            <li><a href="#" class="hover:text-primary transition-colors">Hovedretter</a></li>
+            <li><a href="#" class="hover:text-primary transition-colors">Desserter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-neutral-warm text-center text-xs text-neutral-muted">
+        &copy; 2026 Heirloom &amp; Harvest. Alle rettigheter reservert.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
