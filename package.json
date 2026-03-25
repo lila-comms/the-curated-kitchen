@@ -1,0 +1,9 @@
+{
+  "name": "the-curated-kitchen",
+  "version": "1.0.0",
+  "description": "The Curated Kitchen - A beautiful recipe website built with Tailwind CSS",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  }
+}
