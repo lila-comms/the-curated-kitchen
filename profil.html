@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kari Nordmann - The Curated Kitchen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3A8658',
+            secondary: '#C37D60',
+            tertiary: '#E85B88',
+            neutral: {
+              cream: '#FAF5F0',
+              warm: '#F0E8DE',
+              dark: '#2C2C2C',
+              muted: '#8A8478',
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #FAF5F0; }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-neutral-cream text-neutral-dark">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-neutral-cream/95 backdrop-blur-sm border-b border-neutral-warm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-serif text-xl font-semibold tracking-tight">The Curated Kitchen</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Hjem</a>
+        <a href="oppskrift.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Oppskrifter</a>
+        <a href="profil.html" class="text-sm font-medium text-primary border-b-2 border-primary pb-0.5">Min Profil</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-neutral-muted hover:text-neutral-dark">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-primary">
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile Header -->
+  <section class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+      <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face" alt="Kari Nordmann" class="w-28 h-28 rounded-full object-cover border-4 border-neutral-warm shadow-md">
+      <div class="text-center md:text-left">
+        <h1 class="font-serif text-3xl font-semibold">Kari Nordmann</h1>
+        <p class="text-neutral-muted mt-1">Matskaper &middot; Oslo, Norge</p>
+        <p class="text-neutral-muted mt-3 max-w-lg leading-relaxed text-sm">Matentusiast med en lidenskap for sesongbaserte ingredienser og skandinavisk kjÃ¸kken. Deler kuraterte oppskrifter fra mitt hjemmekjÃ¸kken og mine reiser.</p>
+        <div class="flex items-center justify-center md:justify-start gap-6 mt-5">
+          <div class="text-center">
+            <p class="font-serif text-xl font-semibold">24</p>
+            <p class="text-xs text-neutral-muted">Oppskrifter</p>
+          </div>
+          <div class="w-px h-8 bg-neutral-warm"></div>
+          <div class="text-center">
+            <p class="font-serif text-xl font-semibold">3</p>
+            <p class="text-xs text-neutral-muted">Samlinger</p>
+          </div>
+          <div class="w-px h-8 bg-neutral-warm"></div>
+          <div class="text-center">
+            <p class="font-serif text-xl font-semibold">1.2k</p>
+            <p class="text-xs text-neutral-muted">FÃ¸lgere</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <section class="max-w-6xl mx-auto px-6">
+    <div class="flex gap-6 border-b border-neutral-warm">
+      <button class="text-sm font-medium text-primary border-b-2 border-primary pb-3 px-1">Mine oppskrifter</button>
+      <button class="text-sm font-medium text-neutral-muted pb-3 px-1 hover:text-neutral-dark transition-colors">Samlinger</button>
+      <button class="text-sm font-medium text-neutral-muted pb-3 px-1 hover:text-neutral-dark transition-colors">Lagrede</button>
+    </div>
+  </section>
+
+  <!-- Recipe Grid -->
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=500&fit=crop" alt="Zucchini Ribbon Salad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Zucchini Ribbon Salad</h3>
+        <p class="text-xs text-neutral-muted mt-1">Salat &middot; 25 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&h=500&fit=crop" alt="Creamy Mushroom Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Creamy Mushroom Risotto</h3>
+        <p class="text-xs text-neutral-muted mt-1">Hovedrett &middot; 45 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=500&h=500&fit=crop" alt="Quinoa Power Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Quinoa Power Bowl</h3>
+        <p class="text-xs text-neutral-muted mt-1">Bowl &middot; 30 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop" alt="Sourdough Flatbread" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Sourdough Flatbread</h3>
+        <p class="text-xs text-neutral-muted mt-1">BrÃ¸d &middot; 60 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500&h=500&fit=crop" alt="Charred Summer Squash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Charred Summer Squash</h3>
+        <p class="text-xs text-neutral-muted mt-1">GrÃ¸nnsaker &middot; 35 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&h=500&fit=crop" alt="Roasted Tomato Soup" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Roasted Tomato Soup</h3>
+        <p class="text-xs text-neutral-muted mt-1">Suppe &middot; 40 min</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-warm bg-neutral-cream">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-serif text-lg font-semibold mb-3">The Curated Kitchen</h3>
+          <p class="text-neutral-muted text-sm leading-relaxed">Kuraterte oppskrifter som feirer sesongbaserte ingredienser og enkel eleganse.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Utforsk</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="index.html" class="hover:text-primary transition-colors">Hjem</a></li>
+            <li><a href="oppskrift.html" class="hover:text-primary transition-colors">Oppskrifter</a></li>
+            <li><a href="profil.html" class="hover:text-primary transition-colors">Min Profil</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Kategorier</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="#" class="hover:text-primary transition-colors">Salater</a></li>
+            <li><a href="#" class="hover:text-primary transition-colors">Hovedretter</a></li>
+            <li><a href="#" class="hover:text-primary transition-colors">Desserter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-neutral-warm text-center text-xs text-neutral-muted">
+        &copy; 2026 Heirloom &amp; Harvest. Alle rettigheter reservert.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
