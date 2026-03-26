@@ -33,6 +33,12 @@
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #FAF5F0; }
     .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .shimmer { background: linear-gradient(90deg, #F0E8DE 25%, #FAF5F0 50%, #F0E8DE 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(58,134,88,0.4); } 50% { box-shadow: 0 0 20px 5px rgba(58,134,88,0.2); } }
+    .pulse-glow { animation: pulse-glow 2s infinite; }
   </style>
 </head>
 <body class="bg-neutral-cream text-neutral-dark">
@@ -43,15 +49,16 @@
       <a href="index.html" class="font-serif text-xl font-semibold tracking-tight">The Curated Kitchen</a>
       <div class="hidden md:flex items-center gap-8">
         <a href="index.html" class="text-sm font-medium text-primary border-b-2 border-primary pb-0.5">Hjem</a>
-        <a href="oppskrift.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Oppskrifter</a>
+        <a href="oppskrifter.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Oppskrifter</a>
         <a href="profil.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Min Profil</a>
       </div>
       <div class="flex items-center gap-4">
-        <button class="text-neutral-muted hover:text-neutral-dark">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <button onclick="openAIModal()" class="flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 text-primary px-3 py-1.5 rounded-full text-xs font-medium transition-colors" title="AI Oppskriftsgenerator">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+          AI Kokk
         </button>
         <a href="profil.html">
-          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-neutral-warm">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-neutral-warm">
         </a>
       </div>
     </div>
@@ -66,7 +73,13 @@
         <p class="text-neutral-warm/80 text-sm font-medium uppercase tracking-widest mb-3">Healthy Curations</p>
         <h1 class="font-serif text-4xl md:text-6xl text-white font-semibold leading-tight max-w-xl">The Art of Elevated Simplicity</h1>
         <p class="text-neutral-warm/90 mt-4 max-w-md text-sm leading-relaxed">Oppdag kuraterte oppskrifter som feirer rene smaker, sesongbaserte ingredienser og tidl&oslash;s eleganse.</p>
-        <button class="mt-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors">Utforsk oppskrifter</button>
+        <div class="flex gap-3 mt-6">
+          <a href="oppskrifter.html" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors">Utforsk oppskrifter</a>
+          <button onclick="openAIModal()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            Lag med AI
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -78,7 +91,7 @@
         <p class="text-primary text-xs font-semibold uppercase tracking-widest mb-2">Ukens utvalg</p>
         <h2 class="font-serif text-3xl font-semibold">Healthy Curations</h2>
       </div>
-      <a href="#" class="text-sm text-primary font-medium hover:underline">Se alle &rarr;</a>
+      <a href="oppskrifter.html" class="text-sm text-primary font-medium hover:underline">Se alle &rarr;</a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -96,29 +109,29 @@
       </a>
 
       <!-- Card 2 -->
-      <a href="oppskrift.html" class="group">
+      <a href="oppskrift-laks.html" class="group">
         <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-4">
-          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&h=450&fit=crop" alt="Quinoa Power Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&h=450&fit=crop" alt="Ovnsbakt laks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs bg-secondary/10 text-secondary px-3 py-1 rounded-full font-medium">Bowl</span>
-          <span class="text-xs text-neutral-muted">30 min</span>
+          <span class="text-xs bg-secondary/10 text-secondary px-3 py-1 rounded-full font-medium">Hovedrett</span>
+          <span class="text-xs text-neutral-muted">35 min</span>
         </div>
-        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Quinoa Power Bowl</h3>
-        <p class="text-neutral-muted text-sm mt-1">N&aelig;ringsrik quinoa med avokado, edamame og sesamdressing.</p>
+        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Ovnsbakt Laks med Urtesm&oslash;r</h3>
+        <p class="text-neutral-muted text-sm mt-1">Saftig laks med sm&oslash;r, dill og sitron &mdash; enklere blir det ikke.</p>
       </a>
 
       <!-- Card 3 -->
-      <a href="oppskrift.html" class="group">
+      <a href="oppskrift-pasta.html" class="group">
         <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-4">
-          <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&h=450&fit=crop" alt="Creamy Mushroom Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=450&fit=crop" alt="Pasta med pesto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs bg-neutral-warm text-neutral-dark px-3 py-1 rounded-full font-medium">Hovedrett</span>
-          <span class="text-xs text-neutral-muted">45 min</span>
+          <span class="text-xs bg-neutral-warm text-neutral-dark px-3 py-1 rounded-full font-medium">Pasta</span>
+          <span class="text-xs text-neutral-muted">20 min</span>
         </div>
-        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Creamy Mushroom Risotto</h3>
-        <p class="text-neutral-muted text-sm mt-1">FlÃ¸yaktig risotto med skogssopp, timian og parmigiano.</p>
+        <h3 class="font-serif text-lg font-semibold group-hover:text-primary transition-colors">Pasta med Hjemmelaget Pesto</h3>
+        <p class="text-neutral-muted text-sm mt-1">Klassisk basilikumpesto med pinjekjerner, hvitl&oslash;k og parmesan.</p>
       </a>
     </div>
   </section>
@@ -165,25 +178,75 @@
           <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop" alt="Pizza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Sourdough Flatbread</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Br&oslash;d &middot; 60 min</p>
       </a>
       <a href="oppskrift.html" class="group">
         <div class="aspect-square rounded-xl overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=400&fit=crop" alt="Suppe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Roasted Tomato Soup</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Suppe &middot; 40 min</p>
       </a>
       <a href="oppskrift.html" class="group">
         <div class="aspect-square rounded-xl overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=400&fit=crop" alt="Salat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Garden Herb Salad</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Salat &middot; 15 min</p>
       </a>
       <a href="oppskrift.html" class="group">
         <div class="aspect-square rounded-xl overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&h=400&fit=crop" alt="Dessert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Honey Lavender Tart</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Dessert &middot; 50 min</p>
       </a>
+      <a href="oppskrift-laks.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=400&fit=crop" alt="Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Creamy Mushroom Risotto</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Hovedrett &middot; 45 min</p>
+      </a>
+      <a href="oppskrift-pasta.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=400&fit=crop" alt="Buddha Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Quinoa Power Bowl</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Bowl &middot; 30 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&h=400&fit=crop" alt="Bakte gr&oslash;nnsaker" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">RotgrÃ¸nnsaker med Honning</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Tilbeh&oslash;r &middot; 45 min</p>
+      </a>
+      <a href="oppskrift.html" class="group">
+        <div class="aspect-square rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1432139509613-5c4255a1d1f6?w=400&h=400&fit=crop" alt="Smoothie bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <h4 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Tropical Smoothie Bowl</h4>
+        <p class="text-xs text-neutral-muted mt-0.5">Frokost &middot; 10 min</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- AI CTA Banner -->
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="bg-gradient-to-r from-primary/10 via-primary/5 to-secondary/10 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-3">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+          <p class="text-primary text-xs font-semibold uppercase tracking-widest">Ny funksjon</p>
+        </div>
+        <h2 class="font-serif text-2xl md:text-3xl font-semibold mb-3">AI Oppskriftsgenerator</h2>
+        <p class="text-neutral-muted leading-relaxed">Skriv inn ingrediensene du har tilgjengelig, og la v&aring;r AI-kokk lage en skreddersydd oppskrift for deg. Perfekt n&aring;r du trenger inspirasjon!</p>
+      </div>
+      <button onclick="openAIModal()" class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap pulse-glow">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        Pr&oslash;v AI Kokken
+      </button>
     </div>
   </section>
 
@@ -199,16 +262,17 @@
           <h4 class="font-semibold text-sm mb-3">Utforsk</h4>
           <ul class="space-y-2 text-sm text-neutral-muted">
             <li><a href="index.html" class="hover:text-primary transition-colors">Hjem</a></li>
-            <li><a href="oppskrift.html" class="hover:text-primary transition-colors">Oppskrifter</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Oppskrifter</a></li>
             <li><a href="profil.html" class="hover:text-primary transition-colors">Min Profil</a></li>
           </ul>
         </div>
         <div>
           <h4 class="font-semibold text-sm mb-3">Kategorier</h4>
           <ul class="space-y-2 text-sm text-neutral-muted">
-            <li><a href="#" class="hover:text-primary transition-colors">Salater</a></li>
-            <li><a href="#" class="hover:text-primary transition-colors">Hovedretter</a></li>
-            <li><a href="#" class="hover:text-primary transition-colors">Desserter</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Salater</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Hovedretter</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Desserter</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Supper</a></li>
           </ul>
         </div>
       </div>
@@ -217,6 +281,195 @@
       </div>
     </div>
   </footer>
+
+  <!-- AI Recipe Generator Modal -->
+  <div id="aiModal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeAIModal()"></div>
+    <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl bg-neutral-cream rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="p-6 md:p-8 border-b border-neutral-warm flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          </div>
+          <div>
+            <h2 class="font-serif text-xl font-semibold">AI Oppskriftsgenerator</h2>
+            <p class="text-xs text-neutral-muted">Beskriv ingredienser eller hva du har lyst p&aring;</p>
+          </div>
+        </div>
+        <button onclick="closeAIModal()" class="w-8 h-8 rounded-full hover:bg-neutral-warm flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-6 md:p-8 flex-1 overflow-y-auto">
+        <div id="aiInput" class="space-y-4">
+          <div class="flex flex-wrap gap-2 mb-2">
+            <button onclick="setPrompt('Jeg har kylling, brokkoli og ris')" class="text-xs bg-neutral-warm hover:bg-neutral-warm/70 px-3 py-1.5 rounded-full transition-colors">Kylling, brokkoli &amp; ris</button>
+            <button onclick="setPrompt('Enkel vegetarisk middag med pasta')" class="text-xs bg-neutral-warm hover:bg-neutral-warm/70 px-3 py-1.5 rounded-full transition-colors">Vegetarisk pasta</button>
+            <button onclick="setPrompt('Noe med laks og asiatiske smaker')" class="text-xs bg-neutral-warm hover:bg-neutral-warm/70 px-3 py-1.5 rounded-full transition-colors">Laks &amp; asiatisk</button>
+            <button onclick="setPrompt('Rask frokost med egg')" class="text-xs bg-neutral-warm hover:bg-neutral-warm/70 px-3 py-1.5 rounded-full transition-colors">Frokost med egg</button>
+            <button onclick="setPrompt('Sunn dessert uten sukker')" class="text-xs bg-neutral-warm hover:bg-neutral-warm/70 px-3 py-1.5 rounded-full transition-colors">Sunn dessert</button>
+          </div>
+          <textarea id="aiPrompt" rows="3" placeholder="F.eks: Jeg har kylling, sitron og brokkoli i kj&oslash;leskapet. Lag noe enkelt og sunt..." class="w-full px-4 py-3 rounded-xl border border-neutral-warm bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm resize-none"></textarea>
+          <button onclick="generateRecipe()" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-full text-sm font-medium transition-colors flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            Generer oppskrift
+          </button>
+        </div>
+        <div id="aiLoading" class="hidden space-y-4">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-sm text-neutral-muted">AI-kokken lager oppskrift...</p>
+          </div>
+          <div class="space-y-3">
+            <div class="h-6 shimmer rounded-lg w-3/4"></div>
+            <div class="h-4 shimmer rounded-lg w-full"></div>
+            <div class="h-4 shimmer rounded-lg w-5/6"></div>
+            <div class="h-4 shimmer rounded-lg w-2/3"></div>
+          </div>
+        </div>
+        <div id="aiResult" class="hidden fade-in"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openAIModal() {
+      document.getElementById('aiModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAIModal() {
+      document.getElementById('aiModal').classList.add('hidden');
+      document.body.style.overflow = '';
+      document.getElementById('aiInput').classList.remove('hidden');
+      document.getElementById('aiLoading').classList.add('hidden');
+      document.getElementById('aiResult').classList.add('hidden');
+    }
+    function setPrompt(text) {
+      document.getElementById('aiPrompt').value = text;
+    }
+
+    const recipes = [
+      {
+        keywords: ['kylling', 'chicken', 'brokkoli', 'ris'],
+        title: 'Stekt Kylling med Brokkoli & Jasminris',
+        time: '30 min', servings: '4 porsjoner', difficulty: 'Enkel',
+        image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&h=400&fit=crop',
+        desc: 'Saftig kyllingfilet stekt med frisk brokkoli i en lett soyabasert saus, servert over dampende jasminris.',
+        ingredients: ['500 g kyllingfilet, i biter','300 g brokkoli, i buketter','2 dl jasminris','2 ss soyasaus','1 ss sesamolje','2 fedd hvitl\u00f8k, finhakket','1 ss fersk ingef\u00e6r, revet','1 ss honning','Sesamfr\u00f8 til pynt'],
+        steps: [
+          {t:'Kok risen', d:'Kok jasminris etter anvisning p\u00e5 pakken. Hold varm.'},
+          {t:'Stek kyllingen', d:'Varm sesamolje i en wok. Stek kyllingbitene p\u00e5 h\u00f8y varme i 5\u20136 minutter til gylne.'},
+          {t:'Tilsett gr\u00f8nnsaker', d:'Legg i brokkoli, hvitl\u00f8k og ingef\u00e6r. Stek i 3\u20134 minutter til brokkolien er m\u00f8r-sprÃ¸.'},
+          {t:'Lag saus og server', d:'Hell over soyasaus og honning, bland godt. Server over ris og dryss med sesamfr\u00f8.'}
+        ]
+      },
+      {
+        keywords: ['laks', 'salmon', 'asiatisk', 'sushi', 'fisk'],
+        title: 'Glasert Laks med Miso & Ingef\u00e6r',
+        time: '25 min', servings: '2 porsjoner', difficulty: 'Enkel',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&h=400&fit=crop',
+        desc: 'Ovnsbakt laks med en s\u00f8t og salt misoglasur, servert med dampet edamame og krydret ris.',
+        ingredients: ['2 laksefileter','2 ss hvit miso','1 ss mirin','1 ss soyasaus','1 ts sesamolje','1 ts revet ingef\u00e6r','V\u00e5rl\u00f8k og sesamfr\u00f8 til pynt'],
+        steps: [
+          {t:'Lag glasur', d:'Bland miso, mirin, soyasaus, sesamolje og ingef\u00e6r til en jevn glasur.'},
+          {t:'Pensle laksen', d:'Legg laksen p\u00e5 et bakepapirkledd brett. Pensle rikelig med glasur.'},
+          {t:'Stek i ovn', d:'Stek p\u00e5 220\u00b0C i 12\u201315 minutter til laksen er gjennomstekt og glasuren er karamellisert.'},
+          {t:'Server', d:'Pynt med v\u00e5rl\u00f8k og sesamfr\u00f8. Server med ris og edamame.'}
+        ]
+      },
+      {
+        keywords: ['pasta', 'vegetar', 'tomat', 'italiensk'],
+        title: 'Kremet Pasta Primavera',
+        time: '20 min', servings: '4 porsjoner', difficulty: 'Enkel',
+        image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop',
+        desc: 'Fargerik pasta med sesongbaserte gr\u00f8nnsaker i en lett fl\u00f8tesaus med parmesan og friske urter.',
+        ingredients: ['400 g penne','1 squash, i halvm\u00e5ner','1 r\u00f8d paprika, i strimler','200 g cherrytomater','2 dl kreml\u00f8k','50 g parmesan, revet','2 fedd hvitl\u00f8k','Frisk basilikum','Olivenolje, salt og pepper'],
+        steps: [
+          {t:'Kok pastaen', d:'Kok penne i lettsaltet vann etter anvisning. Spar 1 dl pastavann.'},
+          {t:'Stek gr\u00f8nnsakene', d:'Stek squash, paprika og cherrytomater i olivenolje p\u00e5 h\u00f8y varme i 5 minutter.'},
+          {t:'Lag sausen', d:'Tilsett hvitl\u00f8k, kreml\u00f8k og pastavann. La putre i 2 minutter. R\u00f8r inn parmesan.'},
+          {t:'Bland og server', d:'Vend inn pastaen. Smak til med salt og pepper. Topp med frisk basilikum.'}
+        ]
+      },
+      {
+        keywords: ['egg', 'frokost', 'morgen', 'breakfast'],
+        title: 'Shakshuka med Fetaost & Urter',
+        time: '20 min', servings: '2 porsjoner', difficulty: 'Enkel',
+        image: 'https://images.unsplash.com/photo-1590412200988-a436970781fa?w=600&h=400&fit=crop',
+        desc: 'Posjerte egg i en krydret tomatsaus med fetaost, persille og varmt flatbr\u00f8d \u2014 den perfekte frokosten.',
+        ingredients: ['4 egg','1 boks hermetiske tomater','1 l\u00f8k, hakket','2 fedd hvitl\u00f8k','1 ts spisskummen','1 ts paprika','100 g fetaost, smuldret','Frisk persille','Flatbr\u00f8d til servering'],
+        steps: [
+          {t:'Lag tomatsaus', d:'Fres l\u00f8k og hvitl\u00f8k i olivenolje. Tilsett krydder og tomater. Kok i 10 minutter.'},
+          {t:'Tilsett egg', d:'Lag sm\u00e5 br\u00f8nner i sausen og knekk et egg i hver. Dekk til og kok i 5\u20137 minutter.'},
+          {t:'Topp og server', d:'Smuldre fetaost over. Dryss med persille og server med varmt flatbr\u00f8d.'}
+        ]
+      },
+      {
+        keywords: ['dessert', 'sukker', 's\u00f8t', 'kake', 'sunn'],
+        title: 'Sjokolade-Avokado Mousse',
+        time: '15 min', servings: '4 porsjoner', difficulty: 'Enkel',
+        image: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=600&h=400&fit=crop',
+        desc: 'En overraskende kremet og sunn sjokolademousse laget med avokado, kakao og ahornsirup \u2014 helt uten raffinert sukker.',
+        ingredients: ['2 modne avokadoer','4 ss kakaopulver','3 ss ahornsirup','1 ts vanilje','1 dl kokosmelk','En klype havsalt','Friske b\u00e6r til topping'],
+        steps: [
+          {t:'Blend alt', d:'Kj\u00f8r avokado, kakao, ahornsirup, vanilje, kokosmelk og salt i en blender til helt glatt.'},
+          {t:'Smak til', d:'Juster s\u00f8thet og kakao etter \u00f8nske. Tilsett litt mer kokosmelk om du vil ha l\u00f8sere konsistens.'},
+          {t:'Kj\u00f8l og server', d:'Fordel i glass og sett i kj\u00f8leskapet i minst 30 minutter. Topp med friske b\u00e6r.'}
+        ]
+      }
+    ];
+
+    function generateRecipe() {
+      const prompt = document.getElementById('aiPrompt').value.toLowerCase().trim();
+      if (!prompt) return;
+      document.getElementById('aiInput').classList.add('hidden');
+      document.getElementById('aiLoading').classList.remove('hidden');
+      document.getElementById('aiResult').classList.add('hidden');
+
+      setTimeout(() => {
+        let best = null, bestScore = 0;
+        recipes.forEach(r => {
+          let score = 0;
+          r.keywords.forEach(k => { if (prompt.includes(k)) score += 2; });
+          if (score > bestScore) { bestScore = score; best = r; }
+        });
+        if (!best) best = recipes[Math.floor(Math.random() * recipes.length)];
+
+        const stepsHtml = best.steps.map((s,i) => `
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-xs font-semibold">${i+1}</span>
+            <div><p class="font-semibold text-sm">${s.t}</p><p class="text-neutral-muted text-sm">${s.d}</p></div>
+          </li>`).join('');
+
+        const ingredientsHtml = best.ingredients.map(ing =>
+          `<li class="flex items-start gap-2 text-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></span>${ing}</li>`
+        ).join('');
+
+        document.getElementById('aiResult').innerHTML = `
+          <div class="fade-in">
+            <img src="${best.image}" class="w-full h-48 object-cover rounded-xl mb-5" alt="${best.title}">
+            <h3 class="font-serif text-2xl font-semibold mb-2">${best.title}</h3>
+            <div class="flex items-center gap-3 mb-4 text-xs text-neutral-muted">
+              <span>${best.time}</span><span>&middot;</span><span>${best.servings}</span><span>&middot;</span><span>${best.difficulty}</span>
+            </div>
+            <p class="text-neutral-muted text-sm leading-relaxed mb-6">${best.desc}</p>
+            <h4 class="font-semibold text-sm mb-3">Ingredienser</h4>
+            <ul class="space-y-2 mb-6">${ingredientsHtml}</ul>
+            <h4 class="font-semibold text-sm mb-3">Fremgangsm\u00e5te</h4>
+            <ol class="space-y-4 mb-6">${stepsHtml}</ol>
+            <div class="flex gap-3">
+              <button onclick="document.getElementById('aiInput').classList.remove('hidden');document.getElementById('aiResult').classList.add('hidden');document.getElementById('aiPrompt').value='';" class="flex-1 border border-neutral-warm py-2.5 rounded-full text-sm font-medium hover:bg-neutral-warm transition-colors">Lag en ny</button>
+              <button onclick="closeAIModal()" class="flex-1 bg-primary text-white py-2.5 rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">Lukk</button>
+            </div>
+          </div>`;
+
+        document.getElementById('aiLoading').classList.add('hidden');
+        document.getElementById('aiResult').classList.remove('hidden');
+      }, 2000);
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAIModal(); });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alle Oppskrifter - The Curated Kitchen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3A8658',
+            secondary: '#C37D60',
+            tertiary: '#E85B88',
+            neutral: { cream: '#FAF5F0', warm: '#F0E8DE', dark: '#2C2C2C', muted: '#8A8478' }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #FAF5F0; }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+</head>
+<body class="bg-neutral-cream text-neutral-dark">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-neutral-cream/95 backdrop-blur-sm border-b border-neutral-warm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-serif text-xl font-semibold tracking-tight">The Curated Kitchen</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Hjem</a>
+        <a href="oppskrifter.html" class="text-sm font-medium text-primary border-b-2 border-primary pb-0.5">Oppskrifter</a>
+        <a href="profil.html" class="text-sm font-medium text-neutral-muted hover:text-neutral-dark transition-colors">Min Profil</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="text-neutral-muted hover:text-neutral-dark">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <a href="profil.html">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-neutral-warm">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+    <h1 class="font-serif text-4xl font-semibold mb-3">Alle Oppskrifter</h1>
+    <p class="text-neutral-muted max-w-lg">Utforsk v&aring;r samling av kuraterte oppskrifter &mdash; fra raske hverdagsretter til elegante helgemiddager.</p>
+  </section>
+
+  <!-- Category Filter -->
+  <section class="max-w-6xl mx-auto px-6 mb-10">
+    <div class="flex flex-wrap gap-2">
+      <button onclick="filterRecipes('alle')" class="filter-btn active text-xs px-4 py-2 rounded-full font-medium transition-colors bg-primary text-white" data-cat="alle">Alle</button>
+      <button onclick="filterRecipes('salat')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="salat">Salater</button>
+      <button onclick="filterRecipes('hovedrett')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="hovedrett">Hovedretter</button>
+      <button onclick="filterRecipes('pasta')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="pasta">Pasta</button>
+      <button onclick="filterRecipes('suppe')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="suppe">Supper</button>
+      <button onclick="filterRecipes('dessert')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="dessert">Desserter</button>
+      <button onclick="filterRecipes('frokost')" class="filter-btn text-xs px-4 py-2 rounded-full font-medium transition-colors bg-neutral-warm text-neutral-dark hover:bg-primary hover:text-white" data-cat="frokost">Frokost</button>
+    </div>
+  </section>
+
+  <!-- Recipe Grid -->
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="recipeGrid">
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="salat">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=375&fit=crop" alt="Zucchini Ribbon Salad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">Salat</span>
+          <span class="text-xs text-neutral-muted">25 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Zucchini Ribbon Salad</h3>
+      </a>
+
+      <a href="oppskrift-laks.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&h=375&fit=crop" alt="Ovnsbakt Laks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-medium">Hovedrett</span>
+          <span class="text-xs text-neutral-muted">35 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Ovnsbakt Laks med Urtesm&oslash;r</h3>
+      </a>
+
+      <a href="oppskrift-pasta.html" class="group recipe-card" data-category="pasta">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500&h=375&fit=crop" alt="Pasta med Pesto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-neutral-warm text-neutral-dark px-2 py-0.5 rounded-full font-medium">Pasta</span>
+          <span class="text-xs text-neutral-muted">20 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Pasta med Hjemmelaget Pesto</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=500&h=375&fit=crop" alt="Risotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-medium">Hovedrett</span>
+          <span class="text-xs text-neutral-muted">45 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Creamy Mushroom Risotto</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=500&h=375&fit=crop" alt="Quinoa Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-medium">Bowl</span>
+          <span class="text-xs text-neutral-muted">30 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Quinoa Power Bowl</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=375&fit=crop" alt="Flatbread" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-neutral-warm text-neutral-dark px-2 py-0.5 rounded-full font-medium">Br&oslash;d</span>
+          <span class="text-xs text-neutral-muted">60 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Sourdough Flatbread</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="suppe">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&h=375&fit=crop" alt="Tomatsuppe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-full font-medium">Suppe</span>
+          <span class="text-xs text-neutral-muted">40 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Roasted Tomato Soup</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="salat">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=375&fit=crop" alt="Urtesalat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">Salat</span>
+          <span class="text-xs text-neutral-muted">15 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Garden Herb Salad</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500&h=375&fit=crop" alt="Grillet squash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full font-medium">Gr&oslash;nnsaker</span>
+          <span class="text-xs text-neutral-muted">35 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Charred Summer Squash</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="dessert">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&h=375&fit=crop" alt="Honey Lavender Tart" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-full font-medium">Dessert</span>
+          <span class="text-xs text-neutral-muted">50 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Honey Lavender Tart</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="hovedrett">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=500&h=375&fit=crop" alt="Rotgr&oslash;nnsaker" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-neutral-warm text-neutral-dark px-2 py-0.5 rounded-full font-medium">Tilbeh&oslash;r</span>
+          <span class="text-xs text-neutral-muted">45 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Rotgr&oslash;nnsaker med Honning</h3>
+      </a>
+
+      <a href="oppskrift.html" class="group recipe-card" data-category="frokost">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1432139509613-5c4255a1d1f6?w=500&h=375&fit=crop" alt="Smoothie Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">Frokost</span>
+          <span class="text-xs text-neutral-muted">10 min</span>
+        </div>
+        <h3 class="font-serif text-sm font-semibold group-hover:text-primary transition-colors">Tropical Smoothie Bowl</h3>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-warm bg-neutral-cream">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-serif text-lg font-semibold mb-3">The Curated Kitchen</h3>
+          <p class="text-neutral-muted text-sm leading-relaxed">Kuraterte oppskrifter som feirer sesongbaserte ingredienser og enkel eleganse.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Utforsk</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="index.html" class="hover:text-primary transition-colors">Hjem</a></li>
+            <li><a href="oppskrifter.html" class="hover:text-primary transition-colors">Oppskrifter</a></li>
+            <li><a href="profil.html" class="hover:text-primary transition-colors">Min Profil</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-3">Kategorier</h4>
+          <ul class="space-y-2 text-sm text-neutral-muted">
+            <li><a href="#" onclick="filterRecipes('salat');return false;" class="hover:text-primary transition-colors">Salater</a></li>
+            <li><a href="#" onclick="filterRecipes('hovedrett');return false;" class="hover:text-primary transition-colors">Hovedretter</a></li>
+            <li><a href="#" onclick="filterRecipes('dessert');return false;" class="hover:text-primary transition-colors">Desserter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-neutral-warm text-center text-xs text-neutral-muted">
+        &copy; 2026 Heirloom &amp; Harvest. Alle rettigheter reservert.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function filterRecipes(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-neutral-warm', 'text-neutral-dark');
+      });
+      document.querySelector(`.filter-btn[data-cat="${cat}"]`).classList.remove('bg-neutral-warm', 'text-neutral-dark');
+      document.querySelector(`.filter-btn[data-cat="${cat}"]`).classList.add('bg-primary', 'text-white');
+
+      document.querySelectorAll('.recipe-card').forEach(card => {
+        if (cat === 'alle' || card.dataset.category === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
