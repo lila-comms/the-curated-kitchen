@@ -1,13 +1,195 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  
-  
-< CD4B04:<title>Pasta med Hjemmelaget Pesto - The Curated Kitchen</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasta med Hjemmelaget Pesto - The Curated Kitchen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3A8658',
+                        secondary: '#C37D60',
+                        tertiary: '#E85B88',
+                        cream: '#FAF5F0',
+                        warm: '#F0E8DE',
+                        dark: '#2C2C2C',
+                        muted: '#8A8478'
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-cream">
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-warm">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="font-playfair text-2xl font-bold text-primary">The Curated Kitchen</a>
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="text-dark hover:text-primary transition">Hjem</a>
+                <a href="oppskrifter.html" class="text-dark hover:text-primary transition">Oppskrifter</a>
+                <a href="profil.html" class="text-dark hover:text-primary transition">Min Profil</a>
+                <button onclick="openAIModal()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition">AI Kokk</button>
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Profil" class="w-10 h-10 rounded-full">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Image -->
+    <div class="w-full aspect-video overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200&h=600&fit=crop" alt="Pasta med Pesto" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Recipe Header -->
+        <div class="mb-12">
+            <h1 class="font-playfair text-5xl font-bold text-dark mb-4">Pasta med Hjemmelaget Pesto</h1>
+            <p class="text-lg text-muted mb-6">Ingenting slÃ¥r en hjemmelaget pesto â frisk, aromatisk og utrolig smakfull. Denne klassiske basilikumpestoen tar bare minutter Ã¥ lage.</p>
+
+            <!-- Stats -->
+            <div class="flex gap-8 py-6 border-t border-b border-warm">
+                <div>
+                    <p class="text-sm text-muted">Tilberedningstid</p>
+                    <p class="font-semibold text-dark">20 min</p>
+                </div>
+                <div>
+                    <p class="text-sm text-muted">Porsjoner</p>
+                    <p class="font-semibold text-dark">4 personer</p>
+                </div>
+                <div>
+                    <p class="text-sm text-muted">Vanskelighetsgrad</p>
+                    <p class="font-semibold text-dark">Lett</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredients -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div>
+                <h2 class="font-playfair text-3xl font-bold text-dark mb-6">Ingredienser</h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">400 g spaghetti eller linguine</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">2 store bunter frisk basilikum (ca. 70 g)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">60 g pine nÃ¸tter, ristet</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">2 fedd hvitklÃ¸k</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">100 g parmesanost, finrevet</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">1,5 dl ekstra virgin olivenolje</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">Salt og svart pepper etter smak</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-primary font-bold">â¢</span>
+                        <span class="text-dark">Sitronskall (valgfritt)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Instructions -->
+            <div>
+                <h2 class="font-playfair text-3xl font-bold text-dark mb-6">FremgangsmÃ¥te</h2>
+                <ol class="space-y-4">
+                    <li class="flex gap-4">
+                        <span class="text-primary font-bold flex-shrink-0">1.</span>
+                        <span class="text-dark">Kok pastaen i rikelig med saltet vann etter anvisning pÃ¥ pakken. Spar 1-2 dl kokevannet fÃ¸r du heller av.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-primary font-bold flex-shrink-0">2.</span>
+                        <span class="text-dark">Hakk basilikum, pine nÃ¸tter, hvitklÃ¸k og parmesanost i foodprosessor eller morter.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-primary font-bold flex-shrink-0">3.</span>
+                        <span class="text-dark">Hell i olivenolje i en tynn strÃ¥le mens du rÃ¸rer. Smak til med salt, pepper og eventuelt sitronskall.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-primary font-bold flex-shrink-0">4.</span>
+                        <span class="text-dark">Vend pestoen inn i den varme pastaen. Tilsett litt kokevannet for Ã¥ lÃ¸sne sausen.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-primary font-bold flex-shrink-0">5.</span>
+                        <span class="text-dark">Fordel pÃ¥ tallerkener, topp med ekstra pesto og basilikumblader. Server umiddelbart.</span>
+                    </li>
+                </ol>
+
+                <!-- Cooking Tips -->
+                <div class="mt-8 p-4 bg-warm rounded-lg">
+                    <p class="text-sm text-muted mb-2">ð¡ Koketips</p>
+                    <p class="text-dark text-sm">Bruk frisk basilikum av beste kvalitet. UnngÃ¥ Ã¥ kjÃ¸re pesto for lenge â det skal vÃ¦re litt tekstur. Du kan ogsÃ¥ tilsette pinjekjerner og sitronskall for ekstra smak og dybde.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Link -->
+        <div class="pt-8 border-t border-warm">
+            <a href="oppskrifter.html" class="text-primary hover:text-secondary transition font-medium">â Tilbake til oppskrifter</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-cream py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-3 gap-8 mb-8">
+                <div>
+                    <p class="font-playfair text-xl font-bold mb-4">The Curated Kitchen</p>
+                    <p class="text-sm text-muted">HÃ¥ndplukket oppskrifter fra hele verden.</p>
+                </div>
+                <div>
+                    <p class="font-semibold mb-4">Lenker</p>
+                    <ul class="space-y-2 text-sm text-muted">
+                        <li><a href="index.html" class="hover:text-cream transition">Hjem</a></li>
+                        <li><a href="oppskrifter.html" class="hover:text-cream transition">Oppskrifter</a></li>
+                        <li><a href="profil.html" class="hover:text-cream transition">Min Profil</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="font-semibold mb-4">Kontakt</p>
+                    <p class="text-sm text-muted">kontakt@thecuratedkitchen.no</p>
+                </div>
+            </div>
+            <div class="border-t border-muted pt-8 text-center text-sm text-muted">
+                <p>&copy; 2026 The Curated Kitchen. Alle rettigheter forbeholdt.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openAIModal() {
+            // Placeholder function
+        }
+    </script>
+</body>
+</html>
