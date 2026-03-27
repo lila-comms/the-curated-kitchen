@@ -94,6 +94,29 @@
         "Server straks med ekstra parmesan og fersk basilikum."
       ],
       "tips": "Bruk en Food Processor hvis du ikke har morter - blender eller kjøkkenmaskinen funker også bra. Pestos blir grønnere hvis du blander den i morter. Ikke varm pestos mye - den skal være frisk og aromatisk."
+    },
+    {
+      "id": "taco-med-en-vri",
+      "slug": "taco-med-en-vri",
+      "title": "Taco med en vri",
+      "description": "Tacefredag, tjohei! ",
+      "category": "Hovedretter",
+      "difficulty": "Lett",
+      "prepTime": "20 min",
+      "servings": "2 pers",
+      "heroImage": "fghj",
+      "ingredients": [
+        "Tacokjøtt",
+        "Saus",
+        "Ost",
+        "Agurk",
+        "Tomat",
+        "Skjell / lefse"
+      ],
+      "instructions": [
+        "Bland alt, server i skjell eller lefse."
+      ],
+      "tips": "Nam nam nam nam nam nam nam nam!"
     }
   ]
 }
