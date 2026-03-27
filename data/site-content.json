@@ -1,0 +1,53 @@
+{
+  "site": {
+    "name": "The Curated Kitchen",
+    "tagline": "Håndplukkede oppskrifter fra hele verden",
+    "description": "Oppdag smakfulle og autentiske oppskrifter fra hele verden, håndplukkede av kjøkkensjefen vår."
+  },
+  "nav": {
+    "links": [
+      {
+        "label": "Hjem",
+        "url": "index.html"
+      },
+      {
+        "label": "Oppskrifter",
+        "url": "oppskrifter.html"
+      },
+      {
+        "label": "Min Profil",
+        "url": "profil.html"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Oppdag Smakhat fra Hele Verden",
+    "subtitle": "Håndplukkede oppskrifter som inspirerer. Fra klassisk italiensk pasta til eksotiske kryddrer fra Asia.",
+    "ctaText": "Utforsk Oppskrifter",
+    "ctaUrl": "oppskrifter.html",
+    "backgroundImage": "https://images.unsplash.com/photo-1495575967303-74f76f470dc5?w=1600&h=600&fit=crop"
+  },
+  "footer": {
+    "text": "© 2024 The Curated Kitchen. Med kjærlighet til mat og kultur.",
+    "socialLinks": [
+      {
+        "platform": "instagram",
+        "url": "#"
+      },
+      {
+        "platform": "facebook",
+        "url": "#"
+      }
+    ]
+  },
+  "pages": {
+    "oppskrifter": {
+      "title": "Alle Oppskrifter",
+      "subtitle": "Et utvalg av våre favorittoppskrifter"
+    },
+    "profil": {
+      "title": "Min Profil",
+      "subtitle": "Dine sparede oppskrifter og preferanser"
+    }
+  }
+}
