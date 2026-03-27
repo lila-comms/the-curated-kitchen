@@ -1,0 +1,99 @@
+{
+  "recipes": [
+    {
+      "id": "zucchini-ribbon-salat",
+      "title": "Zucchini Ribbon Salat",
+      "slug": "zucchini-ribbon-salat",
+      "category": "Salater",
+      "description": "En frisk og lett salat med ribboner av zucchini, perfekt som tilbehør eller lett lunsj.",
+      "prepTime": "20 min",
+      "servings": "4 personer",
+      "difficulty": "Lett",
+      "heroImage": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&h=600&fit=crop",
+      "ingredients": [
+        "2 store zucchini",
+        "2 ss sitronsaft",
+        "2 ss olivolje",
+        "1 tsk salt",
+        "½ tsk sort pepper",
+        "100 g feta",
+        "Frisk basilikum",
+        "30 g pinjekjerner"
+      ],
+      "instructions": [
+        "Vask zucchini og kutt dem i lange, tynne ribbon med en spiralisator eller mandoline.",
+        "Legg zucchiniribbon i en stor skål.",
+        "Bland sitronsaft, olivolje, salt og pepper i en liten skål.",
+        "Hell dressingen over zucchini og bland godt.",
+        "La salaten stå i 10 minutter for at smakene skal trekke inn.",
+        "Toppes med krumlet feta, frisk basilikum og ristet pinjekjerner.",
+        "Server straks."
+      ],
+      "tips": "Bruk en spiralisator for fine ribbon. Du kan også bruke en mandoline eller grønnsakskalker. Salaten er best servert frisk samme dag."
+    },
+    {
+      "id": "ovnsbakt-laks-med-urtesmoer",
+      "title": "Ovnsbakt Laks med Urtesmør",
+      "slug": "ovnsbakt-laks-med-urtesmoer",
+      "category": "Hovedretter",
+      "description": "Saftig laksebiff ovnsbakt med aromatisk urtesmør og ferskt sitronsaft.",
+      "prepTime": "35 min",
+      "servings": "4 personer",
+      "difficulty": "Lett",
+      "heroImage": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&h=600&fit=crop",
+      "ingredients": [
+        "4 laksefileter (150 g hver)",
+        "100 g smør",
+        "2 ss frisk persille, finhakket",
+        "1 ss frisk dill, finhakket",
+        "1 ss frisk timian",
+        "2 fedd hvitløk, presset",
+        "Saft av 1 sitron",
+        "Salt og pepper",
+        "Sitronslicer til garnering"
+      ],
+      "instructions": [
+        "Forvarm ovnen til 200°C.",
+        "Bland smør, persille, dill, timian, hvitløk, sitronsaft, salt og pepper i en liten skål.",
+        "Legg laksefileter på et styrke bakepapir.",
+        "Dele urtesmøret og legg en portion på hver laksefilet.",
+        "Brett opp papirene rundt laksen for å lage pakker.",
+        "Bak i ovnen i 15-20 minutter til laksen er gjennomsiktig og smelter i munnen.",
+        "Åpne papirbakene forsiktig og server straks med sitronslicer."
+      ],
+      "tips": "Kjøp laksen hos en god fiskemonger. Du kan erstatte urter etter smak. Serveres godt med poteter, ris eller grønn salat."
+    },
+    {
+      "id": "pasta-med-hjemmelaget-pesto",
+      "title": "Pasta med Hjemmelaget Pesto",
+      "slug": "pasta-med-hjemmelaget-pesto",
+      "category": "Pasta",
+      "description": "Klassisk italiensk pasta med hjemmelaget basil-pesto. Enkelt, raskt og uslåelig godt.",
+      "prepTime": "20 min",
+      "servings": "4 personer",
+      "difficulty": "Lett",
+      "heroImage": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200&h=600&fit=crop",
+      "ingredients": [
+        "400 g pasta (penne eller spaghetti)",
+        "150 g frisk basilikum",
+        "50 g pinjekjerner",
+        "50 g parmigiano-reggiano, finhakket",
+        "3 fedd hvitløk",
+        "150 ml olivolje",
+        "Salt og pepper",
+        "Ekstra parmesan til servering"
+      ],
+      "instructions": [
+        "Kok pasta i saltet kokende vann etter pakningens anvisning.",
+        "Mens pastaen koker, lag pesto: Mal basilikum, pinjekjerner, hvitløk og salt i en morter.",
+        "Tilsett parmigiano-reggiano gradvis.",
+        "Dryss olivoljen langsomt over tiden mens du rører. Pastavannet kan brukes hvis pestos blir for tykk.",
+        "Smak til med salt og pepper.",
+        "Hell av pastavannet (spar 1 dl).",
+        "Bland pesto med varm pasta. Hvis nødvendig, tilsett litt pastavann.",
+        "Server straks med ekstra parmesan og fersk basilikum."
+      ],
+      "tips": "Bruk en Food Processor hvis du ikke har morter - blender eller kjøkkenmaskinen funker også bra. Pestos blir grønnere hvis du blander den i morter. Ikke varm pestos mye - den skal være frisk og aromatisk."
+    }
+  ]
+}
