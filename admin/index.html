@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Curated Kitchen - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3A8658;
+            --secondary: #C37D60;
+            --cream: #FAF5F0;
+            --dark: #2C2C2C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .primary-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .primary-btn:hover {
+            opacity: 0.9;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .secondary-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .secondary-btn:hover {
+            opacity: 0.9;
+        }
+
+        .ghost-btn {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .ghost-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 134, 88, 0.1);
+        }
+
+        .dynamic-list {
+            margin-top: 10px;
+        }
+
+        .dynamic-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .dynamic-item input {
+            flex: 1;
+        }
+
+        .dynamic-item button {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .btn-remove {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-remove:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-add {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            opacity: 0.9;
+        }
+
+        .sidebar {
+            background-color: white;
+            border-right: 1px solid #eee;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .sidebar h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+
+        .nav-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background-color: var(--cream);
+        }
+
+        .nav-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.logged-in {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.logged-out {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .recipe-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-card-content {
+            padding: 15px;
+        }
+
+        .recipe-card h3 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .recipe-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .recipe-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .recipe-card-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .btn-edit {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            opacity: 0.9;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background-color: var(--cream);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background-color: white;
+            border: 1px solid #eee;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            color: white;
+            font-weight: 600;
+        }
+
+        .image-item:hover .image-item-overlay {
+            opacity: 1;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(58, 134, 88, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .modal {
+                max-width: 95%;
+            }
+        }
+
+        .container-fluid {
+            display: flex;
+        }
+
+        .container-fluid > .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .container-fluid > .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .login-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form .primary-btn {
+            width: 100%;
+            padding: 12px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-primary {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-success {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .badge-warning {
+            background-color: #fff3e0;
+            color: #f57c00;
+        }
+    </style>
+</head>
+<body>
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>The Curated Kitchen</h1>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">Admin Panel</p>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="githubPAT">GitHub Personal Access Token</label>
+                    <input type="password" id="githubPAT" name="githubPAT" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
+                    <p class="help-text">Opprett token på https://github.com/settings/tokens<br>Trenger: repo, contents</p>
+                </div>
+                <button type="submit" class="primary-btn">Logg Inn</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
+                Tokenet lagres lokalt i nettleseren din
+            </p>
+        </div>
+    </div>
+
+    <div id="adminPanel" style="display: none;">
+        <div class="container-fluid">
+            <div class="sidebar">
+                <h1 style="font-size: 18px; margin-bottom: 30px;">
+                    <span style="color: var(--primary);">🍳</span> Admin
+                </h1>
+                <div class="nav-item active" data-tab="recipes">📖 Oppskrifter</div>
+                <div class="nav-item" data-tab="content">📝 Sideinnhold</div>
+                <div class="nav-item" data-tab="images">🖼️ Bilder</div>
+                <div class="nav-item" data-tab="links">🔗 Lenker</div>
+                <div class="nav-item" data-tab="publish">🚀 Publiser</div>
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+                <div style="font-size: 12px; color: #666;">
+                    <p><strong>Status:</strong></p>
+                    <div id="statusBadge" class="status-badge logged-in" style="display: block; margin-top: 10px;">
+                        ✓ Logget inn
+                    </div>
+                    <button id="logoutBtn" class="ghost-btn" style="width: 100%; margin-top: 20px; padding: 8px;">
+                        Logg ut
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="content">
+                    <!-- RECIPES TAB -->
+                    <div id="recipes-tab" class="tab-content active">
+                        <div class="header">
+                            <h1>Oppskrifter</h1>
+                            <button class="primary-btn" id="newRecipeBtn">+ Ny Oppskrift</button>
+                        </div>
+
+                        <div id="recipesContainer"></div>
+                    </div>
+
+                    <!-- CONTENT TAB -->
+                    <div id="content-tab" class="tab-content">
+                        <div class="header">
+                            <h1>Sideinnhold</h1>
+                        </div>
+
+                        <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                            <div style="margin-bottom: 30px;">
+                                <h2>Nettsted Innstillinger</h2>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label for="siteName">Nettstedsnavn</label>
+                                    <input type="text" id="siteName" class="site-content-input" data-key="site.name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="siteTagline">Tagline</label>
+                                    <input type="text" id="siteTagline" class="site-content-input" data-key="site.tagline">
+                                </div>
+                            </div>
+
+                            <hr style="margin: 30px 0;">
+
+                            <div style="margin-bottom: 30px;">
+                                <h2>Hero Seksjon</h2>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label for="heroTitle">Tittel</label>
+                                    <input type="text" id="heroTitle" class="site-content-input" data-key="hero.title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroSubtitle">Undertittel</label>
+                                    <input type="text" id="heroSubtitle" class="site-content-input" data-key="hero.subtitle">
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroCtaText">Call-to-Action Tekst</label>
+                                    <input type="text" id="heroCtaText" class="site-content-input" data-key="hero.ctaText">
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroCtaUrl">Call-to-Action URL</label>
+                                    <input type="text" id="heroCtaUrl" class="site-content-input" data-key="hero.ctaUrl">
+                                </div>
+                            </div>
+
+                            <hr style="margin: 30px 0;">
+
+                            <div style="margin-bottom: 30px;">
+                                <h2>Footer</h2>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label for="footerText">Foottekst</label>
+                                    <textarea id="footerText" class="site-content-input" data-key="footer.text"></textarea>
+                                </div>
+                            </div>
+
+                            <button class="primary-btn" id="saveContentBtn">Lagre Endringer</button>
+                        </div>
+                    </div>
+
+                    <!-- IMAGES TAB -->
+                    <div id="images-tab" class="tab-content">
+                        <div class="header">
+                            <h1>Bildesøk (Unsplash)</h1>
+                        </div>
+
+                        <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                            <div class="form-group">
+                                <label for="unsplashSearch">Søk etter bilder</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="text" id="unsplashSearch" placeholder="F.eks. 'laks', 'pasta', 'salat'...">
+                                    <button class="primary-btn" id="searchUnsplashBtn">Søk</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="unsplashResults" class="image-grid"></div>
+                    </div>
+
+                    <!-- LINKS TAB -->
+                    <div id="links-tab" class="tab-content">
+                        <div class="header">
+                            <h1>Navigasjonslenker</h1>
+                        </div>
+
+                        <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                            <h2 style="margin-bottom: 20px;">Hovednavigasjon</h2>
+                            <div id="linksContainer"></div>
+                            <button class="btn-add" id="addLinkBtn">+ Legg til lenke</button>
+                            <button class="primary-btn" id="saveLinksBtn" style="margin-top: 20px;">Lagre Lenker</button>
+                        </div>
+                    </div>
+
+                    <!-- PUBLISH TAB -->
+                    <div id="publish-tab" class="tab-content">
+                        <div class="header">
+                            <h1>Publiser Endringer</h1>
+                        </div>
+
+                        <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                            <div id="publishStatus" style="margin-bottom: 20px;"></div>
+
+                            <h2>Filer som vil bli oppdatert:</h2>
+                            <ul style="margin: 15px 0; padding-left: 20px;">
+                                <li>data/recipes.json - Oppskrifter</li>
+                                <li>data/site-content.json - Sideinnhold</li>
+                                <li>Oppskrift HTML-filer (generert fra malen)</li>
+                            </ul>
+
+                            <button class="primary-btn" id="publishBtn" style="margin-top: 20px; padding: 12px 40px; font-size: 16px;">
+                                🚀 Publiser til GitHub
+                            </button>
+
+                            <p style="margin-top: 20px; font-size: 12px; color: #666;">
+                                Alle endringer vil bli pushet til main-grenen på GitHub.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECIPE MODAL -->
+    <div id="recipeModal" class="modal-overlay">
+        <div class="modal">
+            <h2 id="modalTitle">Ny Oppskrift</h2>
+
+            <form id="recipeForm">
+                <div class="form-group">
+                    <label for="recipeTitle">Tittel *</label>
+                    <input type="text" id="recipeTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipeDescription">Beskrivelse</label>
+                    <textarea id="recipeDescription"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label for="recipeCategory">Kategori *</label>
+                        <select id="recipeCategory" required>
+                            <option value="">Velg kategori</option>
+                            <option value="Salater">Salater</option>
+                            <option value="Hovedretter">Hovedretter</option>
+                            <option value="Pasta">Pasta</option>
+                            <option value="Supper">Supper</option>
+                            <option value="Desserter">Desserter</option>
+                            <option value="Frokost">Frokost</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeDifficulty">Vanskelighetsgrad *</label>
+                        <select id="recipeDifficulty" required>
+                            <option value="">Velg</option>
+                            <option value="Lett">Lett</option>
+                            <option value="Moderat">Moderat</option>
+                            <option value="Vanskelig">Vanskelig</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label for="recipePrepTime">Tilberedningstid *</label>
+                        <input type="text" id="recipePrepTime" placeholder="F.eks. 20 min" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeServings">Porsjoner *</label>
+                        <input type="text" id="recipeServings" placeholder="F.eks. 4 personer" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ingredienser *</label>
+                    <div id="ingredientsList" class="dynamic-list"></div>
+                    <button type="button" class="btn-add" id="addIngredientBtn">+ Legg til ingrediens</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Fremgangsmåte *</label>
+                    <div id="instructionsList" class="dynamic-list"></div>
+                    <button type="button" class="btn-add" id="addInstructionBtn">+ Legg til steg</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipeTips">Koketips</label>
+                    <textarea id="recipeTips"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="recipeImage">BildURL *</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="recipeImage" required>
+                        <button type="button" class="secondary-btn" id="searchImageBtn">Søk</button>
+                    </div>
+                </div>
+
+                <div id="recipeImagePreview" style="margin-bottom: 15px;"></div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" class="ghost-btn" id="cancelRecipeBtn">Avbryt</button>
+                    <button type="submit" class="primary-btn" id="submitRecipeBtn">Lagre Oppskrift</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal" style="max-width: 400px;">
+            <h2 id="confirmTitle">Bekreft handling</h2>
+            <p id="confirmMessage" style="margin-bottom: 20px;"></p>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="ghost-btn" id="confirmCancel">Avbryt</button>
+                <button class="primary-btn" id="confirmOk">Ja, fortsett</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // APP STATE & CONFIGURATION
+        // ============================================
+
+        const CONFIG = {
+            owner: 'lila-comms',
+            repo: 'the-curated-kitchen',
+            branch: 'main',
+            unsplashAccessKey: 'VKZcA8j9NG50Yxlv-_TDGqQ-KnxGl82GH0KhvMPLoJg'
+        };
+
+        let appState = {
+            isLoggedIn: false,
+            githubPAT: null,
+            recipes: [],
+            siteContent: {},
+            currentEditingRecipeId: null,
+            pendingChanges: {
+                recipes: false,
+                content: false,
+                links: false
+            }
+        };
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+
+        function getStoredPAT() {
+            return localStorage.getItem('github_pat');
+        }
+
+        function storePAT(token) {
+            localStorage.setItem('github_pat', token);
+        }
+
+        function removePAT() {
+            localStorage.removeItem('github_pat');
+        }
+
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+
+            const container = document.querySelector('.content');
+            if (container) {
+                container.insertBefore(alert, container.firstChild);
+                setTimeout(() => alert.remove(), 5000);
+            }
+        }
+
+        function utf8ToBase64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function base64ToUtf8(str) {
+            return decodeURIComponent(escape(atob(str)));
+        }
+
+        function slugify(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        // ============================================
+        // GITHUB API FUNCTIONS
+        // ============================================
+
+        async function githubAPI(method, endpoint, data = null) {
+            const url = `https://api.github.com${endpoint}`;
+            const headers = {
+                'Authorization': `token ${appState.githubPAT}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
+
+            try {
+                const options = {
+                    method,
+                    headers
+                };
+
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                const response = await fetch(url, options);
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || `GitHub API error: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('GitHub API error:', error);
+                throw error;
+            }
+        }
+
+        async function getFileContent(path) {
+            try {
+                const data = await githubAPI(
+                    'GET',
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`
+                );
+
+                return {
+                    sha: data.sha,
+                    content: base64ToUtf8(data.content)
+                };
+            } catch (error) {
+                console.error('Error fetching file:', error);
+                throw error;
+            }
+        }
+
+        async function updateFileContent(path, content, message) {
+            try {
+                const file = await getFileContent(path).catch(() => null);
+
+                const data = {
+                    message,
+                    content: utf8ToBase64(content),
+                    branch: CONFIG.branch
+                };
+
+                if (file && file.sha) {
+                    data.sha = file.sha;
+                }
+
+                return await githubAPI(
+                    'PUT',
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`,
+                    data
+                );
+            } catch (error) {
+                console.error('Error updating file:', error);
+                throw error;
+            }
+        }
+
+        async function testGitHubConnection(token) {
+            try {
+                const response = await fetch('https://api.github.com/user', {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                return response.ok;
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                return false;
+            }
+        }
+
+        // ============================================
+        // RECIPE FUNCTIONS
+        // ============================================
+
+        async function loadRecipes() {
+            try {
+                const file = await getFileContent('data/recipes.json');
+                const data = JSON.parse(file.content);
+                appState.recipes = data.recipes || [];
+                renderRecipes();
+            } catch (error) {
+                console.error('Error loading recipes:', error);
+                showAlert('Feil ved lasting av oppskrifter', 'error');
+            }
+        }
+
+        function renderRecipes() {
+            const container = document.getElementById('recipesContainer');
+
+            if (appState.recipes.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Ingen oppskrifter ennå</p>';
+                return;
+            }
+
+            container.innerHTML = appState.recipes.map(recipe => `
+                <div class="recipe-card">
+                    <img src="${recipe.heroImage}" alt="${recipe.title}">
+                    <div class="recipe-card-content">
+                        <h3>${recipe.title}</h3>
+                        <p>
+                            <span class="badge badge-primary">${recipe.category}</span>
+                            <span class="badge badge-warning">${recipe.difficulty}</span>
+                        </p>
+                        <p style="font-size: 13px; color: #999;">
+                            ⏱️ ${recipe.prepTime} • 👥 ${recipe.servings}
+                        </p>
+                        <div class="recipe-card-actions">
+                            <button class="btn-edit" onclick="editRecipe('${recipe.id}')">Rediger</button>
+                            <button class="btn-delete" onclick="deleteRecipe('${recipe.id}')">Slett</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showRecipeModal(recipeId = null) {
+            const modal = document.getElementById('recipeModal');
+            const form = document.getElementById('recipeForm');
+
+            form.reset();
+            appState.currentEditingRecipeId = recipeId;
+
+            document.getElementById('ingredientsList').innerHTML = '';
+            document.getElementById('instructionsList').innerHTML = '';
+            document.getElementById('recipeImagePreview').innerHTML = '';
+
+            if (recipeId) {
+                document.getElementById('modalTitle').textContent = 'Rediger Oppskrift';
+                const recipe = appState.recipes.find(r => r.id === recipeId);
+
+                if (recipe) {
+                    document.getElementById('recipeTitle').value = recipe.title;
+                    document.getElementById('recipeDescription').value = recipe.description;
+                    document.getElementById('recipeCategory').value = recipe.category;
+                    document.getElementById('recipeDifficulty').value = recipe.difficulty;
+                    document.getElementById('recipePrepTime').value = recipe.prepTime;
+                    document.getElementById('recipeServings').value = recipe.servings;
+                    document.getElementById('recipeImage').value = recipe.heroImage;
+                    document.getElementById('recipeTips').value = recipe.tips;
+
+                    // Load ingredients
+                    recipe.ingredients.forEach(ing => addIngredientField(ing));
+
+                    // Load instructions
+                    recipe.instructions.forEach(inst => addInstructionField(inst));
+
+                    // Show image preview
+                    showImagePreview(recipe.heroImage);
+                }
+            } else {
+                document.getElementById('modalTitle').textContent = 'Ny Oppskrift';
+                addIngredientField();
+                addInstructionField();
+            }
+
+            modal.classList.add('active');
+        }
+
+        function hideRecipeModal() {
+            document.getElementById('recipeModal').classList.remove('active');
+        }
+
+        function addIngredientField(value = '') {
+            const container = document.getElementById('ingredientsList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `
+                <input type="text" placeholder="F.eks. 2 ss olivolje" value="${value}">
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(item);
+        }
+
+        function addInstructionField(value = '') {
+            const container = document.getElementById('instructionsList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `
+                <textarea placeholder="Beskriv trinnet..." style="margin: 0;">${value}</textarea>
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(item);
+        }
+
+        function showImagePreview(url) {
+            const preview = document.getElementById('recipeImagePreview');
+            if (url) {
+                preview.innerHTML = `<img src="${url}" alt="preview" style="max-width: 100%; border-radius: 6px;">`;
+            }
+        }
+
+        function editRecipe(id) {
+            showRecipeModal(id);
+        }
+
+        function deleteRecipe(id) {
+            const recipe = appState.recipes.find(r => r.id === id);
+            showConfirm(
+                'Slett oppskrift?',
+                `Er du sikker på at du vil slette "${recipe.title}"?`,
+                async () => {
+                    appState.recipes = appState.recipes.filter(r => r.id !== id);
+                    appState.pendingChanges.recipes = true;
+                    renderRecipes();
+                    showAlert('Oppskrift slettet', 'success');
+                }
+            );
+        }
+
+        async function saveRecipe(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('recipeTitle').value;
+            const description = document.getElementById('recipeDescription').value;
+            const category = document.getElementById('recipeCategory').value;
+            const difficulty = document.getElementById('recipeDifficulty').value;
+            const prepTime = document.getElementById('recipePrepTime').value;
+            const servings = document.getElementById('recipeServings').value;
+            const image = document.getElementById('recipeImage').value;
+            const tips = document.getElementById('recipeTips').value;
+
+            const ingredients = Array.from(
+                document.getElementById('ingredientsList').querySelectorAll('input')
+            ).map(input => input.value).filter(v => v);
+
+            const instructions = Array.from(
+                document.getElementById('instructionsList').querySelectorAll('textarea')
+            ).map(textarea => textarea.value).filter(v => v);
+
+            if (!title || !category || !difficulty || !prepTime || !servings || !image || ingredients.length === 0 || instructions.length === 0) {
+                showAlert('Fyll ut alle påkrevde felt', 'error');
+                return;
+            }
+
+            const slug = slugify(title);
+
+            if (appState.currentEditingRecipeId) {
+                // Update existing recipe
+                const index = appState.recipes.findIndex(r => r.id === appState.currentEditingRecipeId);
+                appState.recipes[index] = {
+                    id: appState.currentEditingRecipeId,
+                    slug,
+                    title,
+                    description,
+                    category,
+                    difficulty,
+                    prepTime,
+                    servings,
+                    heroImage: image,
+                    ingredients,
+                    instructions,
+                    tips
+                };
+            } else {
+                // Add new recipe
+                appState.recipes.push({
+                    id: slug,
+                    slug,
+                    title,
+                    description,
+                    category,
+                    difficulty,
+                    prepTime,
+                    servings,
+                    heroImage: image,
+                    ingredients,
+                    instructions,
+                    tips
+                });
+            }
+
+            appState.pendingChanges.recipes = true;
+            renderRecipes();
+            hideRecipeModal();
+            showAlert('Oppskrift lagret (ikke publisert ennå)', 'success');
+        }
+
+        // ============================================
+        // SITE CONTENT FUNCTIONS
+        // ============================================
+
+        async function loadSiteContent() {
+            try {
+                const file = await getFileContent('data/site-content.json');
+                appState.siteContent = JSON.parse(file.content);
+                renderSiteContentForm();
+            } catch (error) {
+                console.error('Error loading site content:', error);
+                showAlert('Feil ved lasting av sideinnhold', 'error');
+            }
+        }
+
+        function renderSiteContentForm() {
+            const getNestedValue = (obj, path) => {
+                return path.split('.').reduce((curr, prop) => curr?.[prop], obj) || '';
+            };
+
+            document.querySelectorAll('.site-content-input').forEach(input => {
+                const key = input.dataset.key;
+                input.value = getNestedValue(appState.siteContent, key);
+            });
+        }
+
+        function saveSiteContent() {
+            const setNestedValue = (obj, path, value) => {
+                const keys = path.split('.');
+                let current = obj;
+
+                for (let i = 0; i < keys.length - 1; i++) {
+                    const key = keys[i];
+                    if (!current[key]) {
+                        current[key] = {};
+                    }
+                    current = current[key];
+                }
+
+                current[keys[keys.length - 1]] = value;
+            };
+
+            document.querySelectorAll('.site-content-input').forEach(input => {
+                const key = input.dataset.key;
+                setNestedValue(appState.siteContent, key, input.value);
+            });
+
+            appState.pendingChanges.content = true;
+            showAlert('Sideinnhold lagret (ikke publisert ennå)', 'success');
+        }
+
+        // ============================================
+        // LINKS FUNCTIONS
+        // ============================================
+
+        function renderLinks() {
+            const container = document.getElementById('linksContainer');
+            const links = appState.siteContent.nav?.links || [];
+
+            container.innerHTML = links.map((link, index) => `
+                <div class="dynamic-item">
+                    <div style="flex: 1;">
+                        <input type="text" placeholder="Navn" value="${link.label}" class="link-label" data-index="${index}">
+                        <input type="text" placeholder="URL" value="${link.url}" class="link-url" data-index="${index}" style="margin-top: 5px;">
+                    </div>
+                    <button type="button" class="btn-remove" onclick="removeLink(${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function removeLink(index) {
+            if (!appState.siteContent.nav) appState.siteContent.nav = {};
+            if (!appState.siteContent.nav.links) appState.siteContent.nav.links = [];
+
+            appState.siteContent.nav.links.splice(index, 1);
+            renderLinks();
+        }
+
+        function addLink() {
+            if (!appState.siteContent.nav) appState.siteContent.nav = {};
+            if (!appState.siteContent.nav.links) appState.siteContent.nav.links = [];
+
+            appState.siteContent.nav.links.push({ label: '', url: '' });
+            renderLinks();
+        }
+
+        function saveLinks() {
+            const links = [];
+            document.querySelectorAll('.link-label').forEach((input, index) => {
+                const label = input.value;
+                const url = document.querySelector(`.link-url[data-index="${index}"]`).value;
+                if (label && url) {
+                    links.push({ label, url });
+                }
+            });
+
+            if (!appState.siteContent.nav) appState.siteContent.nav = {};
+            appState.siteContent.nav.links = links;
+            appState.pendingChanges.links = true;
+            showAlert('Lenker lagret (ikke publisert ennå)', 'success');
+        }
+
+        // ============================================
+        // IMAGE SEARCH (UNSPLASH)
+        // ============================================
+
+        async function searchUnsplash(query) {
+            if (!query.trim()) {
+                showAlert('Skriv inn et søkeord', 'error');
+                return;
+            }
+
+            const resultsContainer = document.getElementById('unsplashResults');
+            resultsContainer.innerHTML = '<div class="loading"><span class="spinner"></span></div>';
+
+            try {
+                const response = await fetch(
+                    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=12&client_id=${CONFIG.unsplashAccessKey}`
+                );
+
+                if (!response.ok) {
+                    throw new Error('Unsplash API error');
+                }
+
+                const data = await response.json();
+
+                if (data.results.length === 0) {
+                    resultsContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Ingen bilder funnet</p>';
+                    return;
+                }
+
+                resultsContainer.innerHTML = data.results.map(photo => `
+                    <div class="image-item" onclick="copyImageUrl('${photo.urls.regular}')">
+                        <img src="${photo.urls.thumb}" alt="${photo.description || 'Unsplash image'}">
+                        <div class="image-item-overlay">Klikk for å kopiere URL</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error searching Unsplash:', error);
+                showAlert('Feil ved søk i Unsplash', 'error');
+                resultsContainer.innerHTML = '';
+            }
+        }
+
+        function copyImageUrl(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                document.getElementById('recipeImage').value = url;
+                showImagePreview(url);
+                showAlert('Bilde-URL kopiert', 'success');
+            });
+        }
+
+        // ============================================
+        // PUBLISH FUNCTIONS
+        // ============================================
+
+        async function publishChanges() {
+            try {
+                document.getElementById('publishBtn').disabled = true;
+                document.getElementById('publishStatus').innerHTML = '<div class="alert alert-info">Publiserer endringer...</div>';
+
+                // Save recipes
+                if (appState.pendingChanges.recipes) {
+                    const recipesContent = JSON.stringify({ recipes: appState.recipes }, null, 2);
+                    await updateFileContent('data/recipes.json', recipesContent, 'Update recipes');
+                }
+
+                // Save site content
+                if (appState.pendingChanges.content || appState.pendingChanges.links) {
+                    const contentStr = JSON.stringify(appState.siteContent, null, 2);
+                    await updateFileContent('data/site-content.json', contentStr, 'Update site content');
+                }
+
+                appState.pendingChanges = {
+                    recipes: false,
+                    content: false,
+                    links: false
+                };
+
+                document.getElementById('publishStatus').innerHTML = '<div class="alert alert-success">✓ Endringer publisert til GitHub!</div>';
+                showAlert('Publisering vellykket', 'success');
+            } catch (error) {
+                console.error('Publish error:', error);
+                document.getElementById('publishStatus').innerHTML = '<div class="alert alert-error">Feil: ' + error.message + '</div>';
+                showAlert('Feil ved publisering: ' + error.message, 'error');
+            } finally {
+                document.getElementById('publishBtn').disabled = false;
+            }
+        }
+
+        // ============================================
+        // AUTH FUNCTIONS
+        // ============================================
+
+        async function login(token) {
+            try {
+                const isValid = await testGitHubConnection(token);
+
+                if (!isValid) {
+                    showAlert('Ugyldig token. Sjekk at det er riktig.', 'error');
+                    return;
+                }
+
+                appState.githubPAT = token;
+                appState.isLoggedIn = true;
+                storePAT(token);
+
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+
+                // Load data
+                await loadRecipes();
+                await loadSiteContent();
+                renderLinks();
+
+                showAlert('Logget inn vellykket', 'success');
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('Loginfeil: ' + error.message, 'error');
+            }
+        }
+
+        function logout() {
+            appState.isLoggedIn = false;
+            appState.githubPAT = null;
+            removePAT();
+
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+        }
+
+        // ============================================
+        // UI HELPERS
+        // ============================================
+
+        function showConfirm(title, message, onConfirm) {
+            const modal = document.getElementById('confirmModal');
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+
+            document.getElementById('confirmOk').onclick = () => {
+                modal.classList.remove('active');
+                onConfirm();
+            };
+
+            document.getElementById('confirmCancel').onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            modal.classList.add('active');
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active from nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected tab
+            const tab = document.getElementById(`${tabName}-tab`);
+            if (tab) {
+                tab.classList.add('active');
+            }
+
+            // Highlight nav item
+            const navItem = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const token = document.getElementById('githubPAT').value;
+            login(token);
+        });
+
+        // Recipe modal
+        document.getElementById('newRecipeBtn').addEventListener('click', () => {
+            showRecipeModal();
+        });
+
+        document.getElementById('cancelRecipeBtn').addEventListener('click', hideRecipeModal);
+        document.getElementById('recipeForm').addEventListener('submit', saveRecipe);
+        document.getElementById('addIngredientBtn').addEventListener('click', () => addIngredientField());
+        document.getElementById('addInstructionBtn').addEventListener('click', () => addInstructionField());
+
+        document.getElementById('searchImageBtn').addEventListener('click', () => {
+            const currentUrl = document.getElementById('recipeImage').value;
+            switchTab('images');
+            document.getElementById('unsplashSearch').focus();
+        });
+
+        document.getElementById('recipeImage').addEventListener('change', (e) => {
+            showImagePreview(e.target.value);
+        });
+
+        // Content editor
+        document.getElementById('saveContentBtn').addEventListener('click', saveSiteContent);
+
+        // Links editor
+        document.getElementById('addLinkBtn').addEventListener('click', addLink);
+        document.getElementById('saveLinksBtn').addEventListener('click', saveLinks);
+
+        // Image search
+        document.getElementById('searchUnsplashBtn').addEventListener('click', () => {
+            const query = document.getElementById('unsplashSearch').value;
+            searchUnsplash(query);
+        });
+
+        document.getElementById('unsplashSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchUnsplash(e.target.value);
+            }
+        });
+
+        // Publish
+        document.getElementById('publishBtn').addEventListener('click', () => {
+            if (Object.values(appState.pendingChanges).some(changed => changed)) {
+                showConfirm(
+                    'Publiser endringer?',
+                    'Dette vil pushe alle endringer til GitHub.',
+                    publishChanges
+                );
+            } else {
+                showAlert('Ingen endringer å publisere', 'info');
+            }
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                switchTab(item.dataset.tab);
+            });
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        // Close modals on background click
+        document.getElementById('recipeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'recipeModal') {
+                hideRecipeModal();
+            }
+        });
+
+        document.getElementById('confirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmModal') {
+                document.getElementById('confirmModal').classList.remove('active');
+            }
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        window.addEventListener('load', () => {
+            const storedPAT = getStoredPAT();
+            if (storedPAT) {
+                login(storedPAT);
+            }
+        });
+    </script>
+</body>
+</html>
